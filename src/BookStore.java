@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.io.*;
+
 public class BookStore {
 
     //creating user object
@@ -14,19 +15,24 @@ public class BookStore {
         currentuser = new User();
 
         //initialize books array
-             books.add( new Book(0,"SatyaGrah",true,15,250));
-             books.add( new Book(1,"Azadi Ki Ladai",true,5,350));
-             books.add(new Book(2,"Loh Purush ",true,35,500));
-             books.add(new Book(3,"The Boss ",false,0,250));
-             books.add(new Book(4,"Freedom Fighters",true,7,600));
+         books.add( new Book(0,"SatyaGrah",true,15,250));
+         books.add( new Book(1,"Azadi Ki Ladai",true,5,350));
+         books.add(new Book(2,"Loh Purush ",true,35,500));
+         books.add(new Book(3,"The Boss ",false,0,250));
+         books.add(new Book(4,"Freedom Fighters",true,7,600));
 
     }
 
     int takeChoice(Scanner sc){
         int choice;
         System.out.print("Enter your choice : ");
-        choice = sc.nextInt();
-        return choice;
+        try{
+            choice = sc.nextInt();
+            return choice;
+        }catch (InputMismatchException e){
+            sc.nextLine();
+            return -1;
+        }
     }
 
     public void profilePart(Scanner sc){
@@ -60,6 +66,8 @@ public class BookStore {
             case 2:
                 currentuser.setLoggedIn(false);
                 return;
+            default:
+                System.out.println("Invalid Choice ...!!!😥");
         }
     }
 
@@ -100,95 +108,101 @@ public class BookStore {
 
                 System.out.print("Enter the BookID which you want ot purchase : ");
                 int  purchaseBid;
-                purchaseBid=sc.nextInt();
-                //sc.next();
-                if(currentuser.getPoints()>=books.get(purchaseBid).getPricePoints() && books.get(purchaseBid).getStock()>0){
-                    currentuser.setPurchasedBooks(purchaseBid);
-                    double remPoints=currentuser.getPoints() - books.get(purchaseBid).getPricePoints();
-                    currentuser.setPoints(remPoints);
-                    System.out.println("Book Purchased successfully");
-                    books.get(purchaseBid).setStock(books.get(purchaseBid).getStock()-1);
-                    profilePart(sc);
-                    return;
-                }else{
-                    if(books.get(purchaseBid).getStock()<=0){
-                        System.out.println("This Book is Out Of stock");
+                try{
+                    purchaseBid=sc.nextInt();
+                    if(currentuser.getPoints()>=books.get(purchaseBid).getPricePoints() && books.get(purchaseBid).getStock()>0){
+                        currentuser.setPurchasedBooks(purchaseBid);
+                        double remPoints=currentuser.getPoints() - books.get(purchaseBid).getPricePoints();
+                        currentuser.setPoints(remPoints);
+                        System.out.println("Book Purchased successfully");
+                        books.get(purchaseBid).setStock(books.get(purchaseBid).getStock()-1);
+                        profilePart(sc);
+                        return;
                     }else{
-                        System.out.println("You have not sufficient balance to buy this book");
+                        if(books.get(purchaseBid).getStock()<=0){
+                            System.out.println("This Book is Out Of stock");
+                        }else{
+                            System.out.println("You have not sufficient balance to buy this book");
+                        }
+
                     }
-                    
+                    break;
+                }catch (InputMismatchException e){
+                    System.out.println("Invalid Input...😣");
+                    sc.nextLine();
                 }
-
-                break;
-
         }
     }
 
-
-    public void getSignInInformation(Design design,Scanner sc) {
-        design.printSignIn();
+    public void getSignInInformation(Scanner sc) {
+        Design.printSignIn();
         int choice;
 
         while (true) {
             //displaying sign in options
             Option.displaySignInOptions();
 
-            choice = takeChoice(sc);
-
-            switch (choice) {
-                case 1:
-                    String uName, uPass;
-                    System.out.print("Enter Username : ");
-                    uName = sc.next();
-                    System.out.print("Enter Password : ");
-                    uPass = sc.next();
-                    if (currentuser.getUsername() == null || currentuser.getPassword() == null) {
-                        System.out.println("😥 Please Register first...!!!\n");
-                        return;
-                    }
-
-                    //validate credentials
-                    if (uName.equals(currentuser.getUsername()) && uPass.equals(currentuser.getPassword())) {
-                        //credentials are valid
-                        System.out.println("Signed in Successfully...😀");
-                        currentuser.setLoggedIn(true);
-
-                       while(true) {
-                            Design.printAvailableBooks();
-                            displayBooks();
-                            //Display Catalog
-                            DisplayCatalog(sc);
-
-                            if (!currentuser.getIsLoggedIn()) {
-                                break;
-                            }
+            try
+            {
+                choice = takeChoice(sc);
+                switch (choice) {
+                    case 1:
+                        String uName, uPass;
+                        System.out.print("Enter Username : ");
+                        uName = sc.next();
+                        System.out.print("Enter Password : ");
+                        uPass = sc.next();
+                        if (currentuser.getUsername() == null || currentuser.getPassword() == null) {
+                            System.out.println("😥 Please Register first...!!!\n");
+                            return;
                         }
-                       return;
-                    }
 
-                    System.out.println("😥 Invalid credentials ! Try Again...!!!\n");
-                    break;
-                case 2:
-                    design.printForgotPassword();
-                    String user;
-                    String pass;
-                    System.out.print("Enter your username :");
-                    user = sc.next();
-                    if (currentuser.getUsername() != null && user.equals(currentuser.getUsername())) {
-                        System.out.print("Enter new password : ");
-                        pass = sc.next();
-                        currentuser.setPassword(pass);
-                        System.out.println("Password changed Successfully...😀");
+                        //validate credentials
+                        if (uName.equals(currentuser.getUsername()) && uPass.equals(currentuser.getPassword())) {
+                            //credentials are valid
+                            System.out.println("Signed in Successfully...😀");
+                            currentuser.setLoggedIn(true);
+
+                            while(true) {
+                                Design.printAvailableBooks();
+                                displayBooks();
+                                //Display Catalog
+                                DisplayCatalog(sc);
+
+                                if (!currentuser.getIsLoggedIn()) {
+                                    break;
+                                }
+                            }
+                            return;
+                        }
+
+                        System.out.println("😥 Invalid credentials ! Try Again...!!!\n");
+                        break;
+                    case 2:
+                        Design.printForgotPassword();
+                        String user;
+                        String pass;
+                        System.out.print("Enter your username :");
+                        user = sc.next();
+                        if (currentuser.getUsername() != null && user.equals(currentuser.getUsername())) {
+                            System.out.print("Enter new password : ");
+                            pass = sc.next();
+                            currentuser.setPassword(pass);
+                            System.out.println("Password changed Successfully...😀");
+                            return;
+                        } else {
+                            System.out.println("😥 User with given username doesn't exists...!!!\n");
+                        }
+                        break;
+                    case 3:
                         return;
-                    } else {
-                        System.out.println("😥 User with given username doesn't exists...!!!\n");
-                    }
-                    break;
-                case 3:
-                    return;
-                default:
-                    System.out.println("Invalid Choice !!!😥");
+                    default:
+                        System.out.println("Invalid Choice !!!😥");
 
+                }
+            }catch(InputMismatchException exception){
+                System.out.println("Invalid Input...😣");
+                sc.nextLine();
             }
         }
     }
@@ -199,15 +213,14 @@ public class BookStore {
         System.out.print("Enter FullName : ");
         fullName = sc.nextLine();
         System.out.print("Enter Username : ");
-        userName = sc.next();
+        userName = sc.nextLine();
         System.out.print("Enter Password : ");
-        userPass = sc.next();
+        userPass = sc.nextLine();
 
         //set all values to user object
         currentuser.setFullName(fullName);
         currentuser.setUsername(userName);
         currentuser.setPassword(userPass);
-
 
         //success message
         System.out.println("Registered in Successfully...😀 \n");
@@ -215,38 +228,38 @@ public class BookStore {
 
     public void start(){
         Scanner sc = new Scanner(System.in);
-        Console console = System.console();
-        Design design = new Design();
 
         // for printing welcome message
-        design.printWelcomeMsg();
-        design.printLine();
+        Design.printWelcomeMsg();
+        Design.printLine();
 
         int choice;
 
         while(true){
             Option.displayInitialOptions();
-            System.out.print("Select your choice : ");
-            choice = sc.nextInt();
+            System.out.print("Enter your choice : ");
+            try{
+                choice = sc.nextInt();
+                switch (choice){
+                    case 1:
+                        //for sign in option
+                        getSignInInformation(sc);
+                        break;
+                    case 2:
+                        //for register option
 
-            switch (choice){
-                case 1:
-                    //for sign in option
-                    getSignInInformation(design,sc);
-                    break;
-                case 2:
-                    //for register option
-
-
-                    //1.1 will print register details
-                    design.printRegister();
-                    registerUser(sc);
-
-                    break;
-                case 3:
-                    return;
-                default:
-                    System.out.println("Invalid Choice !!!\n");
+                        //1.1 will print register details
+                        Design.printRegister();
+                        registerUser(sc);
+                        break;
+                    case 3:
+                        return;
+                    default:
+                        System.out.println("Invalid Choice 😣!!!\n");
+                }
+            }catch (InputMismatchException e){
+                System.out.println("Invalid Input...!!!😣");
+                sc.nextLine();
             }
         }
     }
