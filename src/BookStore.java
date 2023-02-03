@@ -3,27 +3,26 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookStore {
-
     //creating user object
-    User currentuser;
-
+    private User currentuser;
+    private Admin admin;
     //creating object array of books
-    ArrayList<Book> books=new ArrayList<Book>();
+    private ArrayList<Book> books = new ArrayList<Book>();
+    private ArrayList<User> users = new ArrayList<User>();
 
     public BookStore(){
         //initialize user
         currentuser = new User();
-
         //initialize books array
          books.add( new Book(0,"SatyaGrah",true,15,250));
          books.add( new Book(1,"Azadi Ki Ladai",true,5,350));
          books.add(new Book(2,"Loh Purush ",true,35,500));
          books.add(new Book(3,"The Boss ",false,0,250));
          books.add(new Book(4,"Freedom Fighters",true,7,600));
-
+         admin = new Admin();
     }
 
-    int takeChoice(Scanner sc){
+    public int takeChoice(Scanner sc){
         int choice;
         System.out.print("Enter your choice : ");
         try{
@@ -47,10 +46,9 @@ public class BookStore {
         if(currentuser.getPurchasedBooksSize()==0){
             System.out.println("--------------------------You haven't purchased any books--------------------------------");
         }else{
-            for(int i=0;i< books.size();i++){
-                if(currentuser.isPurchased(books.get(i).getBookId())){
-                    Book book = books.get(i);
-                    System.out.format("%-8s %-20s %-15s",book.getBookId(),book.getBookName(),book.getPricePoints() );
+            for (Book book : books) {
+                if (currentuser.isPurchased(book.getBookId())) {
+                    System.out.format("%-8s %-20s %-15s", book.getBookId(), book.getBookName(), book.getPricePoints());
                     System.out.println();
                 }
             }
@@ -69,26 +67,6 @@ public class BookStore {
             default:
                 System.out.println("Invalid Choice ...!!!😥");
         }
-    }
-
-    void displayBooks() {
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.printf("%-8s %-25s %-15s %-8s %-15s", "BOOK ID", "BOOKNAME", "ISAVAILABLE", "STOCK", "PRICEPOINTS");
-        System.out.println();
-        System.out.println("---------------------------------------------------------------------------------------------");
-//iterates over the list
-        for(Book book: books)
-        {
-            String temp;
-            if(book.getAvailstatus()){
-                temp="In-store";
-            }else{
-                temp="OutOfStock";
-            }
-            System.out.format("%-8s %-25s %-15s %-8s %-15s",book.getBookId(),book.getBookName(),temp,book.getStock(),book.getPricePoints() );
-            System.out.println();
-        }
-        System.out.println("----------------------------------------------------------------------------------------------");
     }
 
     public void DisplayCatalog(Scanner sc){
@@ -226,15 +204,40 @@ public class BookStore {
         System.out.println("Registered in Successfully...😀 \n");
     }
 
-    public void start(){
-        Scanner sc = new Scanner(System.in);
+    public void addBook(){
 
-        // for printing welcome message
-        Design.printWelcomeMsg();
-        Design.printLine();
+    }
 
+    public void displayBooks() {
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.printf("%-8s %-25s %-15s %-8s %-15s", "BOOK ID", "BOOKNAME", "ISAVAILABLE", "STOCK", "PRICEPOINTS");
+        System.out.println();
+        System.out.println("---------------------------------------------------------------------------------------------");
+//iterates over the list
+        for(Book book: books)
+        {
+            String temp;
+            if(book.getAvailstatus()){
+                temp="In-store";
+            }else{
+                temp="OutOfStock";
+            }
+            System.out.format("%-8s %-25s %-15s %-8s %-15s",book.getBookId(),book.getBookName(),temp,book.getStock(),book.getPricePoints() );
+            System.out.println();
+        }
+        System.out.println("----------------------------------------------------------------------------------------------");
+    }
+
+    public void deleteBook(){
+
+    }
+
+    public void updateBook(){
+
+    }
+
+    public void handleUser(Scanner sc){
         int choice;
-
         while(true){
             Option.displayInitialOptions();
             System.out.print("Enter your choice : ");
@@ -247,7 +250,6 @@ public class BookStore {
                         break;
                     case 2:
                         //for register option
-
                         //1.1 will print register details
                         Design.printRegister();
                         registerUser(sc);
@@ -262,5 +264,45 @@ public class BookStore {
                 sc.nextLine();
             }
         }
+    }
+
+    public void handleAdmin(Scanner sc){
+
+    }
+    public void start(){
+        Scanner sc = new Scanner(System.in);
+
+        // for printing welcome message
+        Design.printWelcomeMsg();
+        Design.printLine();
+
+        int choice;
+
+        while(true){
+            Option.displayTypeOfUserOptions();
+            System.out.println("Enter your choice : ");
+            try{
+                choice = sc.nextInt();
+                switch (choice){
+                    case 1:
+                        handleAdmin(sc);
+                        break;
+                    case 2:
+                        handleUser(sc);
+                        break;
+                    case 3:
+                        return;
+                    default:
+                        System.out.println("Invalid Choice...!!!");
+                }
+            }catch (InputMismatchException e){
+                System.out.println("Invalid Input...!!!😖");
+            }
+        }
+    }
+
+    //user related methods
+    public void createNewUser(){
+
     }
 }

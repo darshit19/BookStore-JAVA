@@ -10,7 +10,6 @@ public class User {
     private boolean isLoggedIn;
 
     public User(){
-
         this.points=2000.0;
         this.isLoggedIn=false;
     }
@@ -30,7 +29,6 @@ public class User {
     public void setLoggedIn(boolean stat){this.isLoggedIn=stat;}
     public void setPurchasedBooks(int bid){
         purchasedBooks.add(bid);
-        return;
     }
     public double getPoints() {
         return points;
@@ -56,7 +54,7 @@ public class User {
     }
 
     boolean isPurchased(int bid){
-        if(purchasedBooks.indexOf(bid)!=-1){
+        if(purchasedBooks.contains(bid)){
             return true;
         }
         return false;
@@ -68,6 +66,5 @@ public class User {
         System.out.println("FullName : "+this.fullName);
         System.out.println("Credit Points : "+this.points);
         System.out.println("My Books : :");
-
     }
 }

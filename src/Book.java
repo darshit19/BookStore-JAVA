@@ -1,5 +1,4 @@
 public class Book {
-
     private int bookId;
     private String bookName;
     private boolean isAvail;
@@ -26,7 +25,5 @@ public class Book {
         setStock(stock);
         setPricePoints(pricePoints);
     }
-
-
-
 }
+

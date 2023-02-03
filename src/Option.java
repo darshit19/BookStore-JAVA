@@ -20,4 +20,10 @@ public  class Option {
         System.out.println("1.Back to Catalog");
         System.out.println("2.Logout");
     }
+
+    public static void displayTypeOfUserOptions(){
+        System.out.println("1. Admin");
+        System.out.println("2. User");
+        System.out.println("3. Exit");
+    }
 }
