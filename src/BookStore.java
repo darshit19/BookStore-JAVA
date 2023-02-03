@@ -22,6 +22,13 @@ public class BookStore {
 
     }
 
+    int takeChoice(Scanner sc){
+        int choice;
+        System.out.print("Enter your choice : ");
+        choice = sc.nextInt();
+        return choice;
+    }
+
     public void profilePart(Scanner sc){
         currentuser.showProfile();
 
@@ -45,9 +52,8 @@ public class BookStore {
 
         Design.printLine();
         Option.backToCatalogOpt();
-        System.out.print("Enter your choice : ");
-        int catalogChoice;
-        catalogChoice=sc.nextInt();
+
+        int catalogChoice=takeChoice(sc);
         switch(catalogChoice){
             case 1:
                 return;
@@ -59,13 +65,19 @@ public class BookStore {
 
     void displayBooks() {
         System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.printf("%5s %25s %10s %8s %15s", "BOOK ID", "BOOKNAME", "ISAVAILABLE", "STOCK", "PRICEPOINTS");
+        System.out.printf("%-8s %-25s %-15s %-8s %-15s", "BOOK ID", "BOOKNAME", "ISAVAILABLE", "STOCK", "PRICEPOINTS");
         System.out.println();
         System.out.println("---------------------------------------------------------------------------------------------");
 //iterates over the list
         for(Book book: books)
         {
-            System.out.format("%7s %25s %7s %10s %15s",book.getBookId(),book.getBookName(),book.getAvailstatus(),book.getStock(),book.getPricePoints() );
+            String temp;
+            if(book.getAvailstatus()){
+                temp="In-store";
+            }else{
+                temp="OutOfStock";
+            }
+            System.out.format("%-8s %-25s %-15s %-8s %-15s",book.getBookId(),book.getBookName(),temp,book.getStock(),book.getPricePoints() );
             System.out.println();
         }
         System.out.println("----------------------------------------------------------------------------------------------");
@@ -75,9 +87,8 @@ public class BookStore {
         //Display Show Profile and Purchase Optins
         Option.displayProfileOptins();
 
-        System.out.print("Enter Your Choice : ");
-        int profileCh;
-        profileCh=sc.nextInt();
+        int profileCh=takeChoice(sc);
+
         switch (profileCh){
             case 1:
                 profilePart(sc);
@@ -122,8 +133,7 @@ public class BookStore {
             //displaying sign in options
             Option.displaySignInOptions();
 
-            System.out.print("Enter your choice : ");
-            choice = sc.nextInt();
+            choice = takeChoice(sc);
 
             switch (choice) {
                 case 1:
@@ -183,6 +193,25 @@ public class BookStore {
         }
     }
 
+    //For registering user
+    public void registerUser(Scanner sc){
+        String fullName,userName,userPass;
+        System.out.print("Enter FullName : ");
+        fullName = sc.nextLine();
+        System.out.print("Enter Username : ");
+        userName = sc.next();
+        System.out.print("Enter Password : ");
+        userPass = sc.next();
+
+        //set all values to user object
+        currentuser.setFullName(fullName);
+        currentuser.setUsername(userName);
+        currentuser.setPassword(userPass);
+
+
+        //success message
+        System.out.println("Registered in Successfully...😀 \n");
+    }
 
     public void start(){
         Scanner sc = new Scanner(System.in);
@@ -208,25 +237,11 @@ public class BookStore {
                 case 2:
                     //for register option
 
+
                     //1.1 will print register details
                     design.printRegister();
+                    registerUser(sc);
 
-                    String fullName,userName,userPass;
-                    System.out.print("Enter FullName : ");
-                    fullName = sc.next();
-                    System.out.print("Enter Username : ");
-                    userName = sc.next();
-                    System.out.print("Enter Password : ");
-                    userPass = sc.next();
-
-                    //set all values to user object
-                    currentuser.setFullName(fullName);
-                    currentuser.setUsername(userName);
-                    currentuser.setPassword(userPass);
-
-
-                    //success message
-                    System.out.println("Registered in Successfully...😀 \n");
                     break;
                 case 3:
                     return;
