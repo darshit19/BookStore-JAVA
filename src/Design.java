@@ -1,4 +1,8 @@
 public class Design {
+
+    public static void printDashLine(){
+        System.out.println("---------------------------------------------------------------------------------------------");
+    }
     public static void printWelcomeMsg(){
         System.out.println("\n*************************| Welcome To The Stubborn BookStore |**************************");
     }
@@ -24,5 +28,9 @@ public class Design {
 
     public static void printForgotPassword(){
         System.out.println("\n*********| Forgot Password |**********");
+    }
+
+    public static void printAdminWelcomeMsg(){
+        System.out.println("\n*********| Welcome To The Admin panel of The Stubborn BookStore |**********");
     }
 }

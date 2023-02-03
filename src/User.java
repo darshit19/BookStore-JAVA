@@ -6,12 +6,22 @@ public class User {
     private String password;
     private double points;
 
-    private ArrayList<Integer> purchasedBooks= new ArrayList<Integer>();
+    private ArrayList<Integer> purchasedBooks;
     private boolean isLoggedIn;
 
     public User(){
         this.points=2000.0;
         this.isLoggedIn=false;
+        purchasedBooks= new ArrayList<Integer>();
+    }
+
+    public User(String fName,String uName,String password){
+        this.fullName=fName;
+        this.username=uName;
+        this.password=password;
+        this.points=2000.0;
+        this.isLoggedIn=false;
+        purchasedBooks= new ArrayList<Integer>();
     }
 
     public void setFullName(String fullName){
@@ -27,7 +37,11 @@ public class User {
         this.points = points;
     }
     public void setLoggedIn(boolean stat){this.isLoggedIn=stat;}
-    public void setPurchasedBooks(int bid){
+
+    public void setPurchasedBooks(ArrayList<Integer> myBooks){
+        purchasedBooks=myBooks;
+    }
+    public void purchaseBook(int bid){
         purchasedBooks.add(bid);
     }
     public double getPoints() {
@@ -48,6 +62,10 @@ public class User {
 
     public int getPurchasedBooksSize(){
         return purchasedBooks.size();
+    }
+
+    public ArrayList<Integer> getPurchasedBooks(){
+        return purchasedBooks;
     }
     public boolean getIsLoggedIn() {
         return isLoggedIn;

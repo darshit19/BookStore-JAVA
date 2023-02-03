@@ -26,4 +26,11 @@ public  class Option {
         System.out.println("2. User");
         System.out.println("3. Exit");
     }
+
+    public static void displayAdminOptions(){
+        System.out.println("1. Add Book");
+        System.out.println("2. Update Book Details");
+        System.out.println("3. Display Books");
+        System.out.println("4. Exit");
+    }
 }
