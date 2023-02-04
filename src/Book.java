@@ -18,12 +18,15 @@ public class Book {
     public double getPricePoints(){return this.pricePoints;}
 
     //constructor of book
-    public Book(int bookId, String bookName, boolean isAvail, int stock, double pricePoints){
+    public Book(int bookId, String bookName, int stock, double pricePoints){
         setBookId(bookId);
         setBookName(bookName);
-        setAvail(isAvail);
         setStock(stock);
+        if(stock==0){
+            setAvail(false);
+        }else{
+            setAvail(true);
+        }
         setPricePoints(pricePoints);
     }
 }
-

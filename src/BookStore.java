@@ -18,11 +18,11 @@ public class BookStore {
         books = new ArrayList<Book>();
         users = new ArrayList<User>();
         //initialize books array
-         books.add( new Book(0,"SatyaGrah",true,15,250));
-         books.add( new Book(1,"Azadi Ki Ladai",true,5,350));
-         books.add(new Book(2,"Loh Purush ",true,35,500));
-         books.add(new Book(3,"The Boss ",false,0,250));
-         books.add(new Book(4,"Freedom Fighters",true,7,600));
+         books.add( new Book(0,"SatyaGrah",15,250));
+         books.add( new Book(1,"Azadi Ki Ladai",5,350));
+         books.add(new Book(2,"Loh Purush ",35,500));
+         books.add(new Book(3,"The Boss ",0,250));
+         books.add(new Book(4,"Freedom Fighters",7,600));
          admin = new Admin();
     }
 
@@ -234,8 +234,34 @@ public class BookStore {
 
     }
 
-    public void addBook(){
+    public void addBook(BufferedReader br){
+        String bName;
+        int bStock;
+        double bPrice;
+        try{
+            while(true){
+                System.out.print("Enter BookName : ");
+                bName = br.readLine();
+                System.out.print("Enter Book Stock : ");
+                bStock = Integer.parseInt(br.readLine());
+                System.out.print("Enter PricePoints : ");
+                bPrice = Double.parseDouble(br.readLine());
 
+                if(bStock < 0){
+                    System.out.println("Book Stock can not be Negative ...!!!🥴");
+                    continue;
+                }
+                if(bPrice < 50.0){
+                    System.out.println("Book Price can not be less than 50...!!!😌");
+                    continue;
+                }
+                books.add(new Book(books.size(),bName,bStock,bPrice));
+                System.out.println("New Book Added Successfully...✔");
+                break;
+            }
+        }catch (Exception e){
+            System.out.println("Invalid Input...!!!😥");
+        }
     }
 
     public void displayBooks() {
@@ -258,12 +284,47 @@ public class BookStore {
         System.out.println("----------------------------------------------------------------------------------------------");
     }
 
-    public void deleteBook(){
+    public void updateBook(BufferedReader br){
+        displayBooks();
+        int bID;
+        try{
+            while(true){
+                System.out.print("Enter BookID to update its details : ");
+                bID = Integer.parseInt(br.readLine());
+                boolean isFound = false;
 
-    }
-
-    public void updateBook(){
-
+                for(Book book : books){
+                    if(book.getBookId()==bID){
+                        isFound = true;
+                        int choice;
+                        while(true){
+                            System.out.println("1. Update Book Stock");
+                            System.out.println("2. Update Book Price");
+                            System.out.println("3. Exit");
+                            choice = Integer.parseInt(br.readLine());
+                            switch (choice){
+                                case 1:
+                                    System.out.print("Enter new Book Stock : ");
+                                    break;
+                                case 2:
+                                    System.out.print("Enter new Book Price : ");
+                                    break;
+                                case 3:
+                                    return;
+                                default:
+                                    System.out.println("Invalid Choice...!!!😥");
+                            }
+                        }
+                    }
+                }
+                if(isFound==false){
+                    System.out.println("Oops !!! Book with given ID Doesn't Exists");
+                    break;
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Invalid Input...!!!😥");
+        }
     }
 
     public void handleUser(BufferedReader br){
@@ -314,10 +375,10 @@ public class BookStore {
                     choice = takeChoice(br);
                     switch(choice){
                         case 1:
-                            addBook();
+                            addBook(br);
                             break;
                         case 2:
-                            updateBook();
+                            updateBook(br);
                             break;
                         case 3:
                             displayBooks();
