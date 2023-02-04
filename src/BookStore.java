@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.io.Console;
 
 
 public class BookStore {
@@ -26,6 +27,18 @@ public class BookStore {
          admin = new Admin();
     }
 
+    public static String toString(char[] a) {
+        String string = new String(a);
+        return string;
+    }
+    private static String readPassword() {
+        Console console;
+        if ((console = System.console()) != null) {
+            char[] password = console.readPassword();
+            return toString(password);
+        }
+        return null;
+    }
     public int takeChoice(BufferedReader br){
         int choice;
         System.out.print("Enter your choice : ");
@@ -134,7 +147,7 @@ public class BookStore {
                         System.out.print("Enter Username : ");
                         uName = br.readLine();
                         System.out.print("Enter Password : ");
-                        uPass = br.readLine();
+                        uPass = readPassword();
                         if (users.size()==0) {
                             System.out.println("😥 Please Register first...!!!\n");
                             return;
@@ -210,7 +223,7 @@ public class BookStore {
             System.out.print("Enter Username : ");
             userName = br.readLine();
             System.out.print("Enter Password : ");
-            userPass = br.readLine();
+            userPass = readPassword();
 
             boolean flag=true;
             //set all values to user object
@@ -390,7 +403,7 @@ public class BookStore {
             System.out.print("Enter username : ");
             aName = br.readLine();
             System.out.print("Enter password : ");
-            aPass = br.readLine();
+            aPass = readPassword();
 
             if(aName.equals(admin.getUsername()) && aPass.equals(admin.getPassword())){
                 System.out.println("Signed in Successfully...😀");
