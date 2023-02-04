@@ -2,12 +2,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+
 
 public class BookStore {
     //creating user object
-    private User currentuser = new User();
-    private Admin admin;
+    private User currentuser ;
+    private final Admin admin;
     //creating object array of books
     private ArrayList<Book> books;
     private ArrayList<User> users;
@@ -15,8 +15,8 @@ public class BookStore {
     public BookStore(){
         //initialize user
         currentuser = new User();
-        books = new ArrayList<Book>();
-        users = new ArrayList<User>();
+        books = new ArrayList<>();
+        users = new ArrayList<>();
         //initialize books array
          books.add( new Book(0,"SatyaGrah",15,250));
          books.add( new Book(1,"Azadi Ki Ladai",5,350));
@@ -295,13 +295,12 @@ public class BookStore {
 
                 for(Book book : books){
                     if(book.getBookId()==bID){
-                        isFound = true;
                         int choice;
                         while(true){
                             System.out.println("1. Update Book Stock");
                             System.out.println("2. Update Book Price");
                             System.out.println("3. Exit");
-                            choice = Integer.parseInt(br.readLine());
+                            choice = takeChoice(br);
                             switch (choice){
                                 case 1:
                                     System.out.print("Enter new Book Stock : ");
@@ -316,17 +315,25 @@ public class BookStore {
                                     System.out.println("--------------------------------Book Price is updated successfully--------------------------------");
                                     break;
                                 case 3:
-                                    return;
+                                    isFound=true;
+                                    break;
                                 default:
                                     System.out.println("Invalid Choice...!!!😥");
                             }
+                            if(isFound){
+                                break;
+                            }
                         }
+                    }
+                    if(isFound){
+                        break;
                     }
                 }
                 if(!isFound){
                     System.out.println("Oops !!! Book with given ID Doesn't Exists");
-                    break;
+                    continue;
                 }
+                break;
             }
         }catch (Exception e){
             System.out.println("Invalid Input...!!!😥");
@@ -376,8 +383,9 @@ public class BookStore {
             if(aName.equals(admin.getUsername()) && aPass.equals(admin.getPassword())){
                 System.out.println("Signed in Successfully...😀");
                 int choice;
-                Option.displayAdminOptions();
+
                 while(true){
+                    Option.displayAdminOptions();
                     choice = takeChoice(br);
                     switch(choice){
                         case 1:
@@ -434,7 +442,5 @@ public class BookStore {
     }
 
     //user related methods
-    public void createNewUser(){
 
-    }
 }
