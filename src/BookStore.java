@@ -305,9 +305,15 @@ public class BookStore {
                             switch (choice){
                                 case 1:
                                     System.out.print("Enter new Book Stock : ");
+                                    int bStock=Integer.parseInt(br.readLine());
+                                    book.setStock(bStock);
+                                    System.out.println("--------------------------------Book Stock is updated successfully--------------------------------");
                                     break;
                                 case 2:
                                     System.out.print("Enter new Book Price : ");
+                                    double bPrice=Double.parseDouble(br.readLine());
+                                    book.setPricePoints(bPrice);
+                                    System.out.println("--------------------------------Book Price is updated successfully--------------------------------");
                                     break;
                                 case 3:
                                     return;
@@ -317,7 +323,7 @@ public class BookStore {
                         }
                     }
                 }
-                if(isFound==false){
+                if(!isFound){
                     System.out.println("Oops !!! Book with given ID Doesn't Exists");
                     break;
                 }
