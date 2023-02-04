@@ -49,11 +49,11 @@ public class BookStore {
         if(currentuser.getPurchasedBooksSize()==0){
             System.out.println("--------------------------You haven't purchased any books--------------------------------");
         }else{
-            for (Book book : books) {
-                if (currentuser.isPurchased(book.getBookId())) {
-                    System.out.format("%-8s %-20s %-15s", book.getBookId(), book.getBookName(), book.getPricePoints());
-                    System.out.println();
-                }
+            for(int i=currentuser.getPurchasedBooks().size()-1;i>=0;i--){
+                int id = currentuser.getPurchasedBooks().get(i);
+                Book tBook = books.get(id);
+                System.out.format("%-8s %-20s %-15s", tBook.getBookId(), tBook.getBookName(), tBook.getPricePoints());
+                System.out.println();
             }
         }
 
@@ -247,6 +247,10 @@ public class BookStore {
                 System.out.print("Enter PricePoints : ");
                 bPrice = Double.parseDouble(br.readLine());
 
+                if(bStock<0 && bPrice<50.0){
+                    System.out.println("Book Stock and Book Price can not be Negative ...!!!🥴");
+                    continue;
+                }
                 if(bStock < 0){
                     System.out.println("Book Stock can not be Negative ...!!!🥴");
                     continue;
@@ -273,7 +277,7 @@ public class BookStore {
         for(Book book: books)
         {
             String temp;
-            if(book.getAvailstatus()){
+            if(book.getStock()>0){
                 temp="In-store";
             }else{
                 temp="OutOfStock";
@@ -305,12 +309,20 @@ public class BookStore {
                                 case 1:
                                     System.out.print("Enter new Book Stock : ");
                                     int bStock=Integer.parseInt(br.readLine());
+                                    if(bStock < 0){
+                                        System.out.println("Book Stock can not be Negative ...!!!🥴");
+                                        break;
+                                    }
                                     book.setStock(bStock);
                                     System.out.println("--------------------------------Book Stock is updated successfully--------------------------------");
                                     break;
                                 case 2:
                                     System.out.print("Enter new Book Price : ");
                                     double bPrice=Double.parseDouble(br.readLine());
+                                    if(bPrice < 50.0){
+                                        System.out.println("Book Price can not be less than 50...!!!😌");
+                                        break;
+                                    }
                                     book.setPricePoints(bPrice);
                                     System.out.println("--------------------------------Book Price is updated successfully--------------------------------");
                                     break;
@@ -440,7 +452,4 @@ public class BookStore {
             }
         }
     }
-
-    //user related methods
-
 }
