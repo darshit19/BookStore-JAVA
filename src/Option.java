@@ -11,7 +11,7 @@ public  class Option {
         System.out.println("3. Exit");
     }
 
-    public static void displayProfileOptins(){
+    public static void displayProfileOptions(){
         System.out.println("1.Show Profile");
         System.out.println("2.Purchase");
     }

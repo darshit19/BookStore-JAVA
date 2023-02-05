@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26fbf0c2-6e3c-4318-9c3a-374dafff0367" name="Changes" comment="Admin Completed v1">
+    <list default="true" id="26fbf0c2-6e3c-4318-9c3a-374dafff0367" name="Changes" comment="Password Correction">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BookStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Design.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Design.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Option.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Option.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675510608149</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Password Correction">
+      <created>1675533159099</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1675533159099</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -113,6 +122,7 @@
     <MESSAGE value="1.1 version" />
     <MESSAGE value="Till admin Panel" />
     <MESSAGE value="Admin Completed v1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Admin Completed v1" />
+    <MESSAGE value="Password Correction" />
+    <option name="LAST_COMMIT_MESSAGE" value="Password Correction" />
   </component>
 </project>

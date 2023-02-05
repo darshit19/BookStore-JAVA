@@ -33,4 +33,12 @@ public class Design {
     public static void printAdminWelcomeMsg(){
         System.out.println("\n*********| Welcome To The Admin panel of The Stubborn BookStore |**********");
     }
+
+    public static  void printInvalidInput(){
+        System.out.println("Invalid Input...!!!\n");
+    }
+
+    public static void printInvalidChoice(){
+        System.out.println("Invalid Choice...!!!\n");
+    }
 }

@@ -60,7 +60,7 @@ public class BookStore {
         System.out.println();
         Design.printDashLine();
         if(currentuser.getPurchasedBooksSize()==0){
-            System.out.println("--------------------------You haven't purchased any books--------------------------------");
+            System.out.println("--------------------------You haven't purchased any books--------------------------------\n");
         }else{
             for(int i=currentuser.getPurchasedBooks().size()-1;i>=0;i--){
                 int id = currentuser.getPurchasedBooks().get(i);
@@ -81,13 +81,13 @@ public class BookStore {
                 currentuser.setLoggedIn(false);
                 return;
             default:
-                System.out.println("Invalid Choice ...!!!😥");
+               Design.printInvalidChoice();
         }
     }
 
     public void DisplayCatalog(BufferedReader br){
-        //Display Show Profile and Purchase Optins
-        Option.displayProfileOptins();
+        //Display Show Profile and Purchase Options
+        Option.displayProfileOptions();
 
         int profileCh=takeChoice(br);
 
@@ -108,24 +108,24 @@ public class BookStore {
                         currentuser.purchaseBook(purchaseBid);
                         double remPoints=currentuser.getPoints() - books.get(purchaseBid).getPricePoints();
                         currentuser.setPoints(remPoints);
-                        System.out.println("Book Purchased successfully");
+                        System.out.println("Book Purchased successfully...\n");
                         books.get(purchaseBid).setStock(books.get(purchaseBid).getStock()-1);
                         profilePart(br);
                         return;
                     }else{
                         if(books.get(purchaseBid).getStock()<=0){
-                            System.out.println("This Book is Out Of stock");
+                            System.out.println("This Book is Out Of stock...\n");
                         }else{
-                            System.out.println("You have not sufficient balance to buy this book");
+                            System.out.println("You have not sufficient balance to buy this book...\n");
                         }
 
                     }
                     break;
                 }catch (Exception e){
-                    System.out.println("Invalid Input...😣");
+                    Design.printInvalidInput();
                 }
             default:
-                System.out.println("Invalid choice...😣");
+                Design.printInvalidChoice();
                 break;
         }
     }
@@ -149,7 +149,7 @@ public class BookStore {
                         System.out.print("Enter Password : ");
                         uPass = readPassword();
                         if (users.size()==0) {
-                            System.out.println("😥 Please Register first...!!!\n");
+                            System.out.println("Please Register first...!!!\n");
                             return;
                         }
 
@@ -159,7 +159,7 @@ public class BookStore {
 
                             if (uName.equals(tempUser.getUsername()) && uPass.equals(tempUser.getPassword())) {
                                 //credentials are valid
-                                System.out.println("Signed in Successfully...😀");
+                                System.out.println("Signed in Successfully...\n");
 
                                 // then set the user to current user as he is the active user
                                 currentuser=tempUser;
@@ -179,7 +179,7 @@ public class BookStore {
                                 return;
                             }
                         }
-                        System.out.println("😥 Invalid credentials ! Try Again...!!!\n");
+                        System.out.println("Invalid credentials ! Try Again...!!!\n");
                         break;
 
                     case 2:
@@ -194,20 +194,20 @@ public class BookStore {
                                 System.out.print("Enter new password : ");
                                 pass = br.readLine();
                                 tempUser.setPassword(pass);
-                                System.out.println("Password changed Successfully...😀");
+                                System.out.println("Password changed Successfully...\n");
                                 return;
                             }
                         }
-                        System.out.println("😥 User with given username doesn't exists...!!!\n");
+                        System.out.println("User with given username doesn't exists...!!!\n");
                         break;
                     case 3:
                         return;
                     default:
-                        System.out.println("Invalid Choice !!!😥");
+                        Design.printInvalidChoice();
 
                 }
             }catch(Exception e){
-                System.out.println("Invalid Input...😣");
+                Design.printInvalidInput();
             }
         }
     }
@@ -229,7 +229,7 @@ public class BookStore {
             //set all values to user object
             for(User tempmUser:users){
                 if(tempmUser.getUsername().equals(userName)){
-                    System.out.println("------------------------------------------Sorry , This username is already taken by someone.Choose another one.------------------------------------------");
+                    System.out.println("------------------------------------------Sorry , This username is already taken by someone.Choose another one.------------------------------------------\n");
                     flag=false;
                     break;
                 }
@@ -237,7 +237,7 @@ public class BookStore {
             if(flag){
                 User newUser=new User(fullName,userName,userPass);
                 users.add(newUser);
-                System.out.println("Registered in Successfully...😀");
+                System.out.println("Registered in Successfully...\n");
                 break;
             }
         }
@@ -261,23 +261,23 @@ public class BookStore {
                 bPrice = Double.parseDouble(br.readLine());
 
                 if(bStock<0 && bPrice<50.0){
-                    System.out.println("Book Stock and Book Price can not be Negative ...!!!🥴");
+                    System.out.println("Book Stock and Book Price can not be Negative ...!!!\n");
                     continue;
                 }
                 if(bStock < 0){
-                    System.out.println("Book Stock can not be Negative ...!!!🥴");
+                    System.out.println("Book Stock can not be Negative ...!!!\n");
                     continue;
                 }
                 if(bPrice < 50.0){
-                    System.out.println("Book Price can not be less than 50...!!!😌");
+                    System.out.println("Book Price can not be less than 50...!!!\n");
                     continue;
                 }
                 books.add(new Book(books.size(),bName,bStock,bPrice));
-                System.out.println("New Book Added Successfully...✔");
+                System.out.println("New Book Added Successfully...\n");
                 break;
             }
         }catch (Exception e){
-            System.out.println("Invalid Input...!!!😥");
+            Design.printInvalidInput();
         }
     }
 
@@ -323,27 +323,27 @@ public class BookStore {
                                     System.out.print("Enter new Book Stock : ");
                                     int bStock=Integer.parseInt(br.readLine());
                                     if(bStock < 0){
-                                        System.out.println("Book Stock can not be Negative ...!!!🥴");
+                                        System.out.println("Book Stock can not be Negative ...!!!\n");
                                         break;
                                     }
                                     book.setStock(bStock);
-                                    System.out.println("--------------------------------Book Stock is updated successfully--------------------------------");
+                                    System.out.println("--------------------------------Book Stock is updated successfully--------------------------------\n");
                                     break;
                                 case 2:
                                     System.out.print("Enter new Book Price : ");
                                     double bPrice=Double.parseDouble(br.readLine());
                                     if(bPrice < 50.0){
-                                        System.out.println("Book Price can not be less than 50...!!!😌");
+                                        System.out.println("Book Price can not be less than 50...!!!");
                                         break;
                                     }
                                     book.setPricePoints(bPrice);
-                                    System.out.println("--------------------------------Book Price is updated successfully--------------------------------");
+                                    System.out.println("--------------------------------Book Price is updated successfully--------------------------------\n");
                                     break;
                                 case 3:
                                     isFound=true;
                                     break;
                                 default:
-                                    System.out.println("Invalid Choice...!!!😥");
+                                    Design.printInvalidChoice();
                             }
                             if(isFound){
                                 break;
@@ -355,13 +355,13 @@ public class BookStore {
                     }
                 }
                 if(!isFound){
-                    System.out.println("Oops !!! Book with given ID Doesn't Exists");
+                    System.out.println("Oops !!! Book with given ID Doesn't Exists\n");
                     continue;
                 }
                 break;
             }
         }catch (Exception e){
-            System.out.println("Invalid Input...!!!😥");
+           Design.printInvalidInput();
         }
     }
 
@@ -386,10 +386,10 @@ public class BookStore {
                     case 3:
                         return;
                     default:
-                        System.out.println("Invalid Choice 😣!!!\n");
+                        Design.printInvalidChoice();
                 }
             }catch (Exception e){
-                System.out.println("Invalid Input...!!!😣");
+                Design.printInvalidInput();
             }
         }
     }
@@ -406,7 +406,7 @@ public class BookStore {
             aPass = readPassword();
 
             if(aName.equals(admin.getUsername()) && aPass.equals(admin.getPassword())){
-                System.out.println("Signed in Successfully...😀");
+                System.out.println("Signed in Successfully...\n");
                 int choice;
 
                 while(true){
@@ -425,12 +425,12 @@ public class BookStore {
                         case 4:
                             return;
                         default:
-                            System.out.println("Invalid Option...!!!");
+                            Design.printInvalidChoice();
                             break;
                     }
                 }
             }else{
-                System.out.println("Oops!! Invalid Credentials ...😥");
+                System.out.println("Oops!! Invalid Credentials ...\n");
             }
         }
     }
@@ -458,10 +458,10 @@ public class BookStore {
                     case 3:
                         return;
                     default:
-                        System.out.println("Invalid Choice...!!!");
+                        Design.printInvalidChoice();
                 }
             }catch (Exception e ){
-                System.out.println("Invalid Input...!!!😖");
+                Design.printInvalidInput();
             }
         }
     }
