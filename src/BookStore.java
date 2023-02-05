@@ -79,6 +79,7 @@ public class BookStore {
                 return;
             case 2:
                 currentuser.setLoggedIn(false);
+                System.out.println("\nLogged out Successfully...\n");
                 return;
             default:
                Design.printInvalidChoice();
@@ -123,6 +124,7 @@ public class BookStore {
                     break;
                 }catch (Exception e){
                     Design.printInvalidInput();
+                    break;
                 }
             default:
                 Design.printInvalidChoice();
@@ -154,7 +156,6 @@ public class BookStore {
                         }
 
                         //validate credentials
-                        System.out.println(users.size());
                         for(User tempUser:users){
 
                             if (uName.equals(tempUser.getUsername()) && uPass.equals(tempUser.getPassword())) {
