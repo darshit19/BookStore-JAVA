@@ -6,9 +6,9 @@ It is a Console Based Java Project.
 
 The Project is an effort of 4 Member Team named Stubborn of the OOPS(JAVA) LAB of course IT-602 of DA-IICT under Professor Arpit Rana (Course Instructor).
 Team Members : 
-Chirag Boghara (202212026)
-Vitan Shah (202212037)
-Darshit Sorathiya (202212039)
+Chirag Boghara (202212026)    
+Vitan Shah (202212037)    
+Darshit Sorathiya (202212039)    
 Akash Aich (202212057)
 
 The working of The Software is Clearly explained in the PDF Attached Below :
